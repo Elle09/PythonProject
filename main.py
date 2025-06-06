@@ -264,6 +264,23 @@ def delete_transaction(transactions):
 
 
 
+    
+def save_transactions(filename="financial_transactions.csv"):
+    with open(filename, "w", newline="") as file:
+        fieldnames = ["transaction_id", "date", "customer_id", "amount", "type", "description"]
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
+
+        for tx in transactions:
+            writer.writerow({
+                "transaction_id": tx["transaction_id"],
+                "date": tx["date"].strftime("%Y-%m-%d"),
+                "customer_id": tx["customer_id"],
+                "amount": f"{abs(tx['amount']):.2f}",
+                "type": tx["type"],
+                "description": tx["description"]
+            })
+
 
 
 
