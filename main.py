@@ -168,7 +168,99 @@ def view_transactions(transactions):
 
 
 
+def update_transaction(transactions):
 
+    if len(transactions) == 0:
+        print("No transactions to update")
+        return
+    
+    count = 1
+    for tx in transactions:
+        print(str(count) + ". " + str(tx["transaction_id"]) + " | " + str(tx["date"]) + " | " + str(tx["customer_id"]) + " | " + str(tx["amount"]) + " | " + str(tx["type"]) + " | " + tx["description"])
+        count +=1
+
+    choice = input("Enter the number of the transaction you want to update (or type 'cancel' to quit): ")
+    if choice.lower() == "cancel":
+        print("Updates cancelled")
+        return
+    
+    index = int(choice) - 1
+    if index < 0 or index >= len(transactions):
+        print("Update cancelled")
+        return
+    
+    tx = transactions[index]
+    print("What do you want to update? (date, customer_id, amount, type, description)")
+    
+    field = input("Field: ").lower()
+    if field not in ["date", "customer_id", "amount", "type", "description"]:
+        print("Invalid field")
+        return
+
+    new_value = input("Enter new value: ")
+
+    if field == "date":
+        tx["date"] = datetime.strptime(new_value, "%Y-%m-%d").date()
+    
+    elif field == "customer_id":
+        tx["customer_id"] = int(new_value)
+    
+    elif field == "amount":
+        amount = float(new_value)
+        if tx["type"] == "debit":
+            amount = -abs(amount)
+        else:
+            amount = abs(amount)
+        tx["amount"] = amount
+    
+    elif field == "type":
+        if new_value not in ["credit", "debit", "transfer"]:
+            print("Invalid transaction type")
+            return
+        tx["type"] = new_value
+    
+    else:
+        tx["description"] = new_value
+
+    print("Transaction updated successfully!")
+
+
+
+def delete_transaction(transactions):
+    if len(transactions) == 0:
+        print("No transaction to delete")
+        return
+    
+    count = 1
+    for tx in transactions:
+        print(str(count) + ". " + str(tx["transaction_id"]) + " | " + str(tx["date"]) + " | " + str(tx["customer_id"]) + " | " + str(tx["amount"]) + " | " + str(tx["type"]) + " | " + tx["description"])
+        count += 1
+
+    choice = input("Enter the number of the transaction you want to delete (or type 'cancel' to quit): ")
+    if choice.lower() == "cancel":
+        print("Delete cancelled")
+        return
+    
+    try:
+        index = int(choice) - 1
+        if index < 0 or index >= len(transactions):
+            print("Invalid input, deletion cancelled")
+            return 
+    except ValueError:
+        print("Invalid input, deletion cancelled")
+        return
+
+
+    tx = transactions[index]
+    print("Your selection:")
+    print(str(tx["transaction_id"]) + " | " + str(tx["date"]) + " | " + str(tx["customer_id"]) + " | " + str(tx["amount"]) + " | " + str(tx["type"]) + " | " + tx["description"])
+    
+    confirm = input("Are you sure you want to delete this transaction? once deleted it can no longer be retrieved. (yes/no): ").lower()
+    if confirm == "yes":
+        del transactions[index]
+        print("Transaction deleted")
+    else:
+        print("Deletion cancelled")
 
 
 
