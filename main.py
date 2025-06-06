@@ -283,6 +283,63 @@ def save_transactions(filename="financial_transactions.csv"):
 
 
 
+def analyze_finances(transactions):
+    summary = {"credit": 0.0, "debit": 0.0, "transfer": 0.0}
+    customer_debits = {}
+
+    for tx in transactions:
+        tx_type = tx["type"]
+        amt = abs(tx["amount"])
+
+        if tx_type in summary:
+            summary[tx_type] += amt
+
+        if tx_type == "debit":
+            c_id = tx["customer_id"]
+            customer_debits[c_id] = customer_debits.get(c_id, 0) + amt
+    
+    net_balance = summary["credit"] - summary["debit"]
+
+    if customer_debits:
+        top_customer = max(customer_debits, key=customer_debits.get)
+        top_debit = customer_debits[top_customer]
+    else:
+        top_customer, top_debit = None, 0
+
+
+    output_lines = [
+        "Financial Summary:",
+        f"Total Credits: ${summary['credit']:.2f}",
+        f"Total Debits: ${summary['debit']:.2f}",
+        f"Total Transfers: ${summary['transfer']:.2f}",
+        f"Total Credits: ${summary['credit']:.2f}",
+        f"Net Balance: ${net_balance:.2f}"
+        "",
+        "By Type",
+        f" Credit: ${summary['credit']:.2f}",
+        f" Debit: ${summary['debit']:.2f}",
+        f" Transfer: ${summary['transfer']:.2f}",
+        "",
+        f"Customer with highest debit: {top_customer} (${top_debit:.2f})"
+    ]
+
+
+    print("\n".join(output_lines))
+
+    with open("analysis.txt", "w") as f:
+              f.write("\n".join(output_lines))
+
+
+load_transactions(transactions)
+analyze_finances(transactions)
+
+# testing123
+# load_transactions(transactions)
+# update_transaction(transactions)
+# save_transactions() 
+
+
+
 
 
 
