@@ -1,0 +1,12 @@
+Financial Summary:
+Total Credits: $166662857.17
+Total Debits: $172210235.06
+Total Transfers: $168007221.73
+Total Credits: $166662857.17
+Net Balance: $-5547377.89
+By Type
+ Credit: $166662857.17
+ Debit: $172210235.06
+ Transfer: $168007221.73
+
+Customer with highest debit: 475 ($6182196.50)
