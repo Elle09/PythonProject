@@ -7,7 +7,7 @@ I am aware that I did not complete this project as planned. I have had trouble b
 It's not an excuse but partially a reason. 
 I did enjoy the learning materials from this class, and had a fun time applying what I've learned (and learning things a different way than I initially understood) and I am proud of what I did accomplish here.
 
-I still plan to finish this project because I enjoyed it and was the UI working.
+I still plan to finish this project because I enjoyed it and want the UI working.
 
 Thank you for allowing me to be a part of this class these past few months. Although it makes me sad, I understand I can no longer be apart of the class since I did not complete this project on time. 
 
